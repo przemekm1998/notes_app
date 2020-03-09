@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Simple note-taking script
 
 # Help
-usage() { 
-    echo "Usage: $0 [-f filename] [-d directory]" 1>&2; 
+usage() {
+    echo "Usage: $0 [-f filename] [-d directory]" 1>&2;
     exit 1; 
     }
 
@@ -11,19 +11,22 @@ error() {
     echo "$1" 1>&2;
     usage;
     exit "$2";
-}
+    }
 
 # Declare where to save the notes
-declare notesdir="${HOME}/notes"
-[[ $NOTESDIR ]] && notesdir="${NOTESDIR}"
+declare notesdir=${NOTESDIR:-"${HOME}/notes"}
 
-while getopts "d::f:" args; do
+while getopts "hd::f:" args; do
     case "${args}" in
         d)
             notesdir=${OPTARG}
             ;;
         f)
             declare -r title=${OPTARG}
+            ;;
+
+        h)
+            usage
             ;;
         *)
             usage
