@@ -24,7 +24,6 @@ while getopts "hd::f:" args; do
         f)
             declare -r title=${OPTARG}
             ;;
-
         h)
             usage
             ;;
@@ -64,7 +63,7 @@ if [[ "$note" ]]; then
     fi
 
     # Check if file is writable
-    [[ -w ${filename} ]] || error "File ${filename} is not writable" 1
+    [[ ! -w ${filename} ]] || error "File ${filename} is not writable" 1
 
     echo "${cur_date}: ${note}" >> "$filename.txt" && echo "Note saved to: \"$filename\""
 else
